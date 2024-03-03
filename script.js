@@ -2,7 +2,7 @@ let slideCartBtn = document.querySelector('.fa-bag-shopping');
 let CartDiv = document.getElementById('cart');
 let closeCartBtn = document.getElementById('close-cart');
 let addToCartButtons = document.querySelectorAll('.add-product');
-
+ let total = document.getElementById('total');
 //SLIDE THE CART
 function slideCart(){
 
@@ -28,6 +28,8 @@ addToCartButtons.forEach((button, i) => {
 
 function addToCart() {
 
+    
+
 let product = {
 
     name : document.querySelectorAll('.product-name')[i].textContent,
@@ -36,11 +38,11 @@ let product = {
 
 }
 
-Cart.push(product);
+Cart.push({...product});
 
 localStorage.setItem('cart', JSON.stringify(Cart));
 
-  // Create a new div for the product
+  // CREATE A NEW DIV FOR THE PRODUCT
     let productDiv = document.createElement('div');
     productDiv.classList.add('products-cart');
     
@@ -50,13 +52,13 @@ localStorage.setItem('cart', JSON.stringify(Cart));
     productName.classList.add('product-name-cart')
 
 
-// CREATE A NEW P FOR PRODUCT price
+// CREATE A NEW P FOR PRODUCT PRICE
     let productPrice = document.createElement('p');
     productPrice.textContent = `${product.price}`;
     productPrice.classList.add('product-price-cart');
     
 
-// Create a new img element for the product image
+// CEATE A NEW IMG ELEMENT FOT THE PRODUCT
     let productImg = document.createElement('img');
     productImg.src = product.image;
     productImg.classList.add('image-cart');
@@ -77,26 +79,57 @@ function removePro(){
     //UPDATE THE DATA
     localStorage.setItem('cart', JSON.stringify(Cart));
 
-    // Remove the product div from the cart div
+    // REMOVE THE PRODUCT DIV FROM THE CART DIV
     CartDiv.removeChild(productDiv);
+
+getTotal()
 
 }
 
 removeBtn.addEventListener('click', removePro)
 
-     // Append the elements to the div
+//GET TOTAL OF PRODUCTS INSIDE THE CART
+function getTotal(){
+
+let totalPrice = Cart.reduce(function (acc, curr){
+
+let price = parseFloat(curr.price.slice(1));
+
+return acc + price;
+
+},0)
+
+totalPrice = totalPrice.toLocaleString("en-US", {
+
+  style: "currency",
+  
+  currency: "USD",
+
+
+});
+
+total.textContent = `the total is : ${totalPrice}`;}
+
+getTotal()
+
+
+     // APPEND THE ELEMENTS TO THE DIV
     productDiv.appendChild(productImg);
     productDiv.appendChild(productName);
     productDiv.appendChild(productPrice);
     productDiv.appendChild(removeBtn);
   
-    // Append the div to the cart
-    CartDiv.appendChild(productDiv);
+    // APPEND THE DIV TO THE CARD
+   
+    CartDiv.insertBefore(productDiv,total);
+
   }
 
 button.addEventListener('click', addToCart)
 
 })
+
+
 
 
 

@@ -133,9 +133,10 @@ border: 2px solid black;
     width: 300px;
     height: 100%;
     background: #f8f8f8;
-    padding: 10px;
+    padding: 10px 10px 0 10px;
     box-sizing: border-box;
     transition: right 0.4s ease;
+    overflow: scroll;
 }
 
 .cart.open {
@@ -195,4 +196,15 @@ button {
     border-radius: 5px;
     top: 5px ;
     right: 1px;
+}
+
+.cart #total {
+  position: sticky;
+  bottom: 0;
+    text-align: center;
+    font-size: 20px;
+    color: #43484D;
+    font-weight: 700;
+    background-color: white;
+    padding: 10px;
 }
