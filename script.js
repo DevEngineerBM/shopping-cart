@@ -3,6 +3,7 @@ let CartDiv = document.getElementById('cart');
 let closeCartBtn = document.getElementById('close-cart');
 let addToCartButtons = document.querySelectorAll('.add-product');
  let total = document.getElementById('total');
+
 //SLIDE THE CART
 function slideCart(){
 
@@ -10,7 +11,7 @@ function slideCart(){
 
 }
 
-slideCartBtn.addEventListener('click', slideCart)
+slideCartBtn.addEventListener('click', slideCart);
 
 // CLOSE THE CART
 function closeCArt() {
@@ -19,7 +20,7 @@ function closeCArt() {
 
 }
 
-closeCartBtn.addEventListener('click', closeCArt)
+closeCartBtn.addEventListener('click', closeCArt);
 
 // ADD TO CART
 let Cart = [];
@@ -28,7 +29,7 @@ addToCartButtons.forEach((button, i) => {
 
 function addToCart() {
 
-    
+
 
 let product = {
 
@@ -38,7 +39,20 @@ let product = {
 
 }
 
-Cart.push({...product});
+ // CHECK IF THE PRODUCT IS ALREADY IN THE CART 
+
+  if (!Cart.some(function(c) {
+
+    return c.name === product.name && c.price === product.price && c.image === product.image
+
+})){
+
+    Cart.push(product);
+
+  } else {
+  alert("This product is already in your cart");
+   return false
+  }
 
 localStorage.setItem('cart', JSON.stringify(Cart));
 
@@ -63,10 +77,19 @@ localStorage.setItem('cart', JSON.stringify(Cart));
     productImg.src = product.image;
     productImg.classList.add('image-cart');
 
+    // CREAT NEW INPUT FOR QUANTITY
+
+    let quantityInput = document.createElement('input');
+    quantityInput.setAttribute('type', 'number');
+    quantityInput.setAttribute('placeholder', 'Qt');
+    quantityInput.classList.add('Qinput');
+
     // CREATE A NEW BUTTON FOR REMOVE PRODUCT FROM CART
     let removeBtn = document.createElement('button');
     removeBtn.textContent = 'remove';
     removeBtn.classList.add('remove');
+
+    
 
 function removePro(){
 
@@ -112,12 +135,12 @@ total.textContent = `the total is : ${totalPrice}`;}
 
 getTotal()
 
-
      // APPEND THE ELEMENTS TO THE DIV
     productDiv.appendChild(productImg);
     productDiv.appendChild(productName);
     productDiv.appendChild(productPrice);
     productDiv.appendChild(removeBtn);
+    productDiv.appendChild(quantityInput);
   
     // APPEND THE DIV TO THE CARD
    

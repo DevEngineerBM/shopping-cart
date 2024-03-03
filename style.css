@@ -173,15 +173,24 @@ border: 2px solid black;
     font-size: 16px;
 }
 
-button {
-    display: flex;
-   align-items: center;
-    padding: 10px 20px;
-    background-color: #007BFF;
+#close-cart {
+    width: 30px;
+    height: 30px;
     color: white;
+    background-color: #333;
     border: none;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 30px;
+}
+
+#close-cart:hover {
     cursor: pointer;
-    margin-top: 5px;
+    background-color: #f00;
+}
+
+#close-cart i {
+    font-size: 30px;
 }
 
 .cart h2 {
@@ -193,6 +202,7 @@ button {
     position: absolute;
     padding: 5px 2px;
     background-color: rebeccapurple;
+    color: white;
     border-radius: 5px;
     top: 5px ;
     right: 1px;
@@ -207,4 +217,29 @@ button {
     font-weight: 700;
     background-color: white;
     padding: 10px;
+}
+
+.Qinput {
+        position: absolute;
+        bottom: 25px;
+        left: 150px;
+        width: 60px;
+        width: 40px;
+        height: 25px;
+        font-size: 16px;
+        color: black;
+        background-color: white;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      
+}
+
+.Qinput:focus {
+        outline: none;
+        border-color: #00f;
+}
+
+.Qinput:hover {
+        cursor: pointer;
+        background-color: #eef;
 }
