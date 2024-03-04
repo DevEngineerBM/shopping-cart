@@ -36,6 +36,8 @@ let product = {
     price : document.querySelectorAll('.product-price')[i].textContent,
     image : document.querySelectorAll('img')[i].src,
     quantity : 1,
+    image : document.querySelectorAll('img')[i].src,
+    quantity : 1,
 
 }
 
@@ -69,11 +71,13 @@ localStorage.setItem('cart', JSON.stringify(Cart));
     productPrice.textContent = `${product.price}`;
     productPrice.classList.add('product-price-cart');
     
+    
 // CEATE A NEW IMG ELEMENT FOT THE PRODUCT
     let productImg = document.createElement('img');
     productImg.src = product.image;
     productImg.classList.add('image-cart');
 
+    // CREAT NEW INPUT FOR QUANTITy
     // CREAT NEW INPUT FOR QUANTITy
     let quantityInput = document.createElement('input');
     quantityInput.setAttribute('type', 'number');
@@ -117,6 +121,16 @@ function qtyTotal(){
 
 quantityInput.addEventListener('input', qtyTotal) 
 
+// UPGRADE THE QUANTITY
+function qtyTotal(){
+
+     product.quantity = Number(quantityInput.value); 
+     getTotal(); 
+
+}
+
+quantityInput.addEventListener('input', qtyTotal) 
+
 //GET TOTAL OF PRODUCTS INSIDE THE CART
 function getTotal(){
 
@@ -124,6 +138,7 @@ let totalPrice = Cart.reduce(function (acc, curr){
 
 let price = parseFloat(curr.price.slice(1));
 
+return acc + price * curr.quantity  ;
 return acc + price * curr.quantity  ;
 
 },0)
