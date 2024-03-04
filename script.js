@@ -2,7 +2,8 @@ let slideCartBtn = document.querySelector('.fa-bag-shopping');
 let CartDiv = document.getElementById('cart');
 let closeCartBtn = document.getElementById('close-cart');
 let addToCartButtons = document.querySelectorAll('.add-product');
- let total = document.getElementById('total');
+let total = document.getElementById('total');
+let byNow = document.getElementById('buy-button')
 
 //SLIDE THE CART
 function slideCart(){
@@ -29,18 +30,16 @@ addToCartButtons.forEach((button, i) => {
 
 function addToCart() {
 
-
-
 let product = {
 
     name : document.querySelectorAll('.product-name')[i].textContent,
     price : document.querySelectorAll('.product-price')[i].textContent,
-    image : document.querySelectorAll('img')[i].src
+    image : document.querySelectorAll('img')[i].src,
+    quantity : 1,
 
 }
 
  // CHECK IF THE PRODUCT IS ALREADY IN THE CART 
-
   if (!Cart.some(function(c) {
 
     return c.name === product.name && c.price === product.price && c.image === product.image
@@ -65,22 +64,21 @@ localStorage.setItem('cart', JSON.stringify(Cart));
     productName.textContent = `${product.name}`;
     productName.classList.add('product-name-cart')
 
-
 // CREATE A NEW P FOR PRODUCT PRICE
     let productPrice = document.createElement('p');
     productPrice.textContent = `${product.price}`;
     productPrice.classList.add('product-price-cart');
     
-
 // CEATE A NEW IMG ELEMENT FOT THE PRODUCT
     let productImg = document.createElement('img');
     productImg.src = product.image;
     productImg.classList.add('image-cart');
 
-    // CREAT NEW INPUT FOR QUANTITY
-
+    // CREAT NEW INPUT FOR QUANTITy
     let quantityInput = document.createElement('input');
     quantityInput.setAttribute('type', 'number');
+    quantityInput.setAttribute('value', '1');
+    quantityInput.setAttribute('min', '1')
     quantityInput.setAttribute('placeholder', 'Qt');
     quantityInput.classList.add('Qinput');
 
@@ -88,8 +86,6 @@ localStorage.setItem('cart', JSON.stringify(Cart));
     let removeBtn = document.createElement('button');
     removeBtn.textContent = 'remove';
     removeBtn.classList.add('remove');
-
-    
 
 function removePro(){
 
@@ -111,6 +107,16 @@ getTotal()
 
 removeBtn.addEventListener('click', removePro)
 
+// UPGRADE THE QUANTITY
+function qtyTotal(){
+
+     product.quantity = Number(quantityInput.value); 
+     getTotal(); 
+
+}
+
+quantityInput.addEventListener('input', qtyTotal) 
+
 //GET TOTAL OF PRODUCTS INSIDE THE CART
 function getTotal(){
 
@@ -118,7 +124,7 @@ let totalPrice = Cart.reduce(function (acc, curr){
 
 let price = parseFloat(curr.price.slice(1));
 
-return acc + price;
+return acc + price * curr.quantity  ;
 
 },0)
 
@@ -127,7 +133,6 @@ totalPrice = totalPrice.toLocaleString("en-US", {
   style: "currency",
   
   currency: "USD",
-
 
 });
 
@@ -143,19 +148,34 @@ getTotal()
     productDiv.appendChild(quantityInput);
   
     // APPEND THE DIV TO THE CARD
-   
-    CartDiv.insertBefore(productDiv,total);
+  
+    //CartDiv.insertAfter(productDiv,total);
+    if (total.nextSibling) {
+    CartDiv.insertBefore(productDiv, total.nextSibling);
+} else {
+    CartDiv.appendChild(productDiv);
+}
+
+// ADD PRODUCT MESSAGE
+alert('Success! Your product has been added to the cart. Happy shopping!');
+
+  
 
   }
+
+
+byNow.addEventListener('click', buyPro);
 
 button.addEventListener('click', addToCart)
 
 })
 
+// ADD BUY MESSAGE 
+function buyPro(){
 
-
-
-
+   return  alert('Thank you for your purchase! Your order is being processed and we will update you shortly.');
+ 
+};
 
 
 
