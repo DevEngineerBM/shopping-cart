@@ -3,12 +3,12 @@ let CartDiv = document.getElementById('cart');
 let closeCartBtn = document.getElementById('close-cart');
 let addToCartButtons = document.querySelectorAll('.add-product');
 let total = document.getElementById('total');
-let byNow = document.getElementById('buy-button')
+let byNow = document.getElementById('buy-button');
 
 //SLIDE THE CART
 function slideCart(){
 
-    CartDiv.classList.add('open')
+    CartDiv.classList.add('open');
 
 }
 
@@ -17,7 +17,7 @@ slideCartBtn.addEventListener('click', slideCart);
 // CLOSE THE CART
 function closeCArt() {
 
-    CartDiv.classList.remove('open')
+    CartDiv.classList.remove('open');
 
 }
 
@@ -36,15 +36,13 @@ let product = {
     price : document.querySelectorAll('.product-price')[i].textContent,
     image : document.querySelectorAll('img')[i].src,
     quantity : 1,
-    image : document.querySelectorAll('img')[i].src,
-    quantity : 1,
-
-}
+   
+};
 
  // CHECK IF THE PRODUCT IS ALREADY IN THE CART 
   if (!Cart.some(function(c) {
 
-    return c.name === product.name && c.price === product.price && c.image === product.image
+    return c.name === product.name && c.price === product.price && c.image === product.image;
 
 })){
 
@@ -52,7 +50,7 @@ let product = {
 
   } else {
   alert("This product is already in your cart");
-   return false
+   return false;
   }
 
 localStorage.setItem('cart', JSON.stringify(Cart));
@@ -64,7 +62,7 @@ localStorage.setItem('cart', JSON.stringify(Cart));
 // CREATE A NEW H3 FOR PRODUCT NAME
     let productName = document.createElement('h3');
     productName.textContent = `${product.name}`;
-    productName.classList.add('product-name-cart')
+    productName.classList.add('product-name-cart');
 
 // CREATE A NEW P FOR PRODUCT PRICE
     let productPrice = document.createElement('p');
@@ -82,7 +80,7 @@ localStorage.setItem('cart', JSON.stringify(Cart));
     let quantityInput = document.createElement('input');
     quantityInput.setAttribute('type', 'number');
     quantityInput.setAttribute('value', '1');
-    quantityInput.setAttribute('min', '1')
+    quantityInput.setAttribute('min', '1');
     quantityInput.setAttribute('placeholder', 'Qt');
     quantityInput.classList.add('Qinput');
 
@@ -96,20 +94,21 @@ function removePro(){
   // Remove the product from the cart
     Cart = Cart.filter(function(p){
 
-     return p.name !== product.name
+     return p.name !== product.name;
 
-    })
+    });
+  
     //UPDATE THE DATA
     localStorage.setItem('cart', JSON.stringify(Cart));
 
     // REMOVE THE PRODUCT DIV FROM THE CART DIV
     CartDiv.removeChild(productDiv);
 
-getTotal()
+getTotal();
 
 }
 
-removeBtn.addEventListener('click', removePro)
+removeBtn.addEventListener('click', removePro);
 
 // UPGRADE THE QUANTITY
 function qtyTotal(){
@@ -119,17 +118,11 @@ function qtyTotal(){
 
 }
 
-quantityInput.addEventListener('input', qtyTotal) 
+quantityInput.addEventListener('input', qtyTotal);
 
-// UPGRADE THE QUANTITY
-function qtyTotal(){
 
-     product.quantity = Number(quantityInput.value); 
-     getTotal(); 
 
-}
-
-quantityInput.addEventListener('input', qtyTotal) 
+quantityInput.addEventListener('input', qtyTotal);
 
 //GET TOTAL OF PRODUCTS INSIDE THE CART
 function getTotal(){
@@ -139,9 +132,8 @@ let totalPrice = Cart.reduce(function (acc, curr){
 let price = parseFloat(curr.price.slice(1));
 
 return acc + price * curr.quantity  ;
-return acc + price * curr.quantity  ;
 
-},0)
+},0);
 
 totalPrice = totalPrice.toLocaleString("en-US", {
 
@@ -153,7 +145,7 @@ totalPrice = totalPrice.toLocaleString("en-US", {
 
 total.textContent = `the total is : ${totalPrice}`;}
 
-getTotal()
+getTotal();
 
      // APPEND THE ELEMENTS TO THE DIV
     productDiv.appendChild(productImg);
@@ -174,23 +166,20 @@ getTotal()
 // ADD PRODUCT MESSAGE
 alert('Success! Your product has been added to the cart. Happy shopping!');
 
-  
-
   }
-
 
 byNow.addEventListener('click', buyPro);
 
-button.addEventListener('click', addToCart)
+button.addEventListener('click', addToCart);
 
-})
+});
 
 // ADD BUY MESSAGE 
 function buyPro(){
 
    return  alert('Thank you for your purchase! Your order is being processed and we will update you shortly.');
  
-};
+}
 
 
 
