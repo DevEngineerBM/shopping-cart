@@ -75,8 +75,7 @@ localStorage.setItem('cart', JSON.stringify(Cart));
     productImg.src = product.image;
     productImg.classList.add('image-cart');
 
-    // CREAT NEW INPUT FOR QUANTITy
-    // CREAT NEW INPUT FOR QUANTITy
+// CREAT NEW INPUT FOR QUANTITy
     let quantityInput = document.createElement('input');
     quantityInput.setAttribute('type', 'number');
     quantityInput.setAttribute('value', '1');
@@ -89,9 +88,9 @@ localStorage.setItem('cart', JSON.stringify(Cart));
     removeBtn.textContent = 'remove';
     removeBtn.classList.add('remove');
 
+// Remove the product from the cart    
 function removePro(){
 
-  // Remove the product from the cart
     Cart = Cart.filter(function(p){
 
      return p.name !== product.name;
@@ -104,6 +103,7 @@ function removePro(){
     // REMOVE THE PRODUCT DIV FROM THE CART DIV
     CartDiv.removeChild(productDiv);
 
+    // GET TOTAL FUNCTION
 getTotal();
 
 }
@@ -122,28 +122,6 @@ quantityInput.addEventListener('input', qtyTotal);
 
 
 
-quantityInput.addEventListener('input', qtyTotal);
-
-//GET TOTAL OF PRODUCTS INSIDE THE CART
-function getTotal(){
-
-let totalPrice = Cart.reduce(function (acc, curr){
-
-let price = parseFloat(curr.price.slice(1));
-
-return acc + price * curr.quantity  ;
-
-},0);
-
-totalPrice = totalPrice.toLocaleString("en-US", {
-
-  style: "currency",
-  
-  currency: "USD",
-
-});
-
-total.textContent = `the total is : ${totalPrice}`;}
 
 getTotal();
 
@@ -168,18 +146,48 @@ alert('Success! Your product has been added to the cart. Happy shopping!');
 
   }
 
-byNow.addEventListener('click', buyPro);
 
 button.addEventListener('click', addToCart);
 
 });
 
+
+//GET TOTAL OF PRODUCTS INSIDE THE CART
+function getTotal(){
+
+  let totalPrice = Cart.reduce(function (acc, curr){
+  let price = parseFloat(curr.price.slice(1));
+
+return acc + price * curr.quantity  ;
+
+},0);
+
+totalPrice = totalPrice.toLocaleString("en-US", {
+
+  style: "currency",
+  
+  currency: "USD",
+
+});
+
+total.textContent = `the total is : ${totalPrice}`;}
+
+
 // ADD BUY MESSAGE 
-function buyPro(){
+function buyPro() {
+    if (Cart.length > 0) {
+        alert('Thank you for your purchase! Your order is being processed and we will update you shortly.');
+        // Clear the cart
+        Cart = [];
+        localStorage.setItem('cart', JSON.stringify(Cart));
+        // Remove all product divs from the cart
+        let productDivs = document.querySelectorAll('.products-cart');
+        for (let i = 0; i < productDivs.length; i++) {
+            CartDiv.removeChild(productDivs[i]);
+        }
+        // Update the total
+        getTotal();
+    } else {
+        alert('Nothing to buy')}}
 
-   return  alert('Thank you for your purchase! Your order is being processed and we will update you shortly.');
- 
-}
-
-
-
+byNow.addEventListener('click', buyPro)
