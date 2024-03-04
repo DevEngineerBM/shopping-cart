@@ -121,8 +121,6 @@ function qtyTotal(){
 quantityInput.addEventListener('input', qtyTotal);
 
 
-
-
 getTotal();
 
      // APPEND THE ELEMENTS TO THE DIV
@@ -176,18 +174,27 @@ total.textContent = `the total is : ${totalPrice}`;}
 // ADD BUY MESSAGE 
 function buyPro() {
     if (Cart.length > 0) {
+
         alert('Thank you for your purchase! Your order is being processed and we will update you shortly.');
+
         // Clear the cart
         Cart = [];
         localStorage.setItem('cart', JSON.stringify(Cart));
+
         // Remove all product divs from the cart
         let productDivs = document.querySelectorAll('.products-cart');
         for (let i = 0; i < productDivs.length; i++) {
             CartDiv.removeChild(productDivs[i]);
         }
+
         // Update the total
         getTotal();
-    } else {
-        alert('Nothing to buy')}}
+
+                         } else {
+
+        alert('the cart is empty')
+        
+           }  
+}
 
 byNow.addEventListener('click', buyPro)
